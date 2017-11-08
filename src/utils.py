@@ -9,5 +9,8 @@ def create_dirs(dirlist):
     for dirname in dirlist:
         if not os.path.isdir(dirname):
             logger.info("Creating directory %s" % (dirname))
-            os.makedirs(dirname)
+            try:
+                os.makedirs(dirname)
+            except Exception as e:
+                return True
 
