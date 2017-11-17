@@ -242,7 +242,7 @@ def run_deseq2(quant_files="", alignments="",
                 if "-p " not in stringtie_merge_opts:
                     stringtie_merge_opts += " -p %d" % nthreads
                 gtf_file = "%s/gtfs_list.txt" % work_deseq2
-                if os.path.isfile(gtf_file) is False:
+                if os.path.isfile(gtf_file):
                     gtfs_list = open(gtf_file, 'w')
                     gtfs_list.write("\n".join(reduce(lambda x, y: x + y, transcripts_gtfs)))
                     gtfs_list.close()

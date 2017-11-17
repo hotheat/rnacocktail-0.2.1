@@ -110,7 +110,10 @@ def run_oases(assmebly_hash=DNV_HASH,
             command = "cp %s/transcripts.fa %s/transcripts.fa"%(
                        work_oases, out_oases)
             cmd = TimedExternalCmd(command, logger, raise_exception=True)
-            retcode = cmd.run(cmd_log_fd_out=oases_log_fd, cmd_log=oases_log, msg=msg, timeout=timeout)   
+            retcode = cmd.run(cmd_log_fd_out=oases_log_fd, cmd_log=oases_log, msg=msg, timeout=timeout)
+            command = "rm %s/Graph2" % (work_oases)
+            cmd = TimedExternalCmd(command, logger, raise_exception=True)
+            retcode = cmd.run(cmd_log_fd_out=oases_log_fd, cmd_log=oases_log, msg=msg, timeout=timeout)
     else:
         logger.info("Skipping step %d: %s"%(step,msg))
     step+=1
