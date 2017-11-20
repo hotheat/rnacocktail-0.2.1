@@ -114,6 +114,18 @@ def run_oases(assmebly_hash=DNV_HASH,
             command = "rm %s/Graph2" % (work_oases)
             cmd = TimedExternalCmd(command, logger, raise_exception=True)
             retcode = cmd.run(cmd_log_fd_out=oases_log_fd, cmd_log=oases_log, msg=msg, timeout=timeout)
+            command = "rm %s/Sequences" % (work_oases)
+            cmd = TimedExternalCmd(command, logger, raise_exception=True)
+            retcode = cmd.run(cmd_log_fd_out=oases_log_fd, cmd_log=oases_log, msg=msg, timeout=timeout)
+            command = "rm %s/Roadmaps" % (work_oases)
+            cmd = TimedExternalCmd(command, logger, raise_exception=True)
+            retcode = cmd.run(cmd_log_fd_out=oases_log_fd, cmd_log=oases_log, msg=msg, timeout=timeout)
+            command = "rm %s/PreGraph" % (work_oases)
+            cmd = TimedExternalCmd(command, logger, raise_exception=True)
+            retcode = cmd.run(cmd_log_fd_out=oases_log_fd, cmd_log=oases_log, msg=msg, timeout=timeout)
+            command = "rm %s/LastGraph" % (work_oases)
+            cmd = TimedExternalCmd(command, logger, raise_exception=True)
+            retcode = cmd.run(cmd_log_fd_out=oases_log_fd, cmd_log=oases_log, msg=msg, timeout=timeout)
     else:
         logger.info("Skipping step %d: %s"%(step,msg))
     step+=1
