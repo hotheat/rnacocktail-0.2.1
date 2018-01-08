@@ -3,7 +3,7 @@ from external_cmd import TimedExternalCmd
 from defaults import *
 from utils import *
 import csv
-
+# %(asctime)-15s 总共占 15 个字符
 FORMAT = '%(levelname)s %(asctime)-15s %(name)-20s %(message)s'
 logFormatter = logging.Formatter(FORMAT)
 logger = logging.getLogger(__name__)
@@ -122,7 +122,7 @@ def run_deseq2(quant_files="", alignments="",
     deseq2_log_fd = open(deseq2_log, "w")
 
     if use_quant:
-
+        outdir_flag = 'quant'
         msg = "prepare tx2gene for %s." % samples_txt
         if start <= step:
             logger.info("--------------------------STEP %s--------------------------" % step)
@@ -143,7 +143,7 @@ def run_deseq2(quant_files="", alignments="",
             command = "%s -e \"library('readr'); library('tximport'); \
                        samples=c(%s); (files <- file.path(c(%s))); names(files) <- samples; \
                        tx2gene <- read.csv(file.path('%s'),sep='\\t'); \
-                       txi <- tximport(files, type = 'salmon', tx2gene = tx2gene, reader = read_tsv); \
+                       txi <- tximport(files, type = 'salmon', tx2gene = tx2gene, importer = read_tsv); \
                        save(txi, file='%s/txi.rda'); \
                        write.table(txi$abundance, file = '%s/txi.abundances',\
                        quote = FALSE, sep='\\t'); \
@@ -189,6 +189,7 @@ def run_deseq2(quant_files="", alignments="",
 
     else:
         if use_refgtf:
+            outdir_flag = 'ref_gtf'
             msg = "featureCounts for %s" % samples_txt
             if start <= step:
                 logger.info("--------------------------STEP %s--------------------------" % step)
@@ -232,7 +233,7 @@ def run_deseq2(quant_files="", alignments="",
             step += 1
 
         else:
-
+            outdir_flag = 'trans_gtf'
             msg = "Merge transcripts GTFs for %s" % samples_txt
             if start <= step:
                 logger.info("--------------------------STEP %s--------------------------" % step)
@@ -242,7 +243,7 @@ def run_deseq2(quant_files="", alignments="",
                 if "-p " not in stringtie_merge_opts:
                     stringtie_merge_opts += " -p %d" % nthreads
                 gtf_file = "%s/gtfs_list.txt" % work_deseq2
-                if os.path.isfile(gtf_file):
+                if not os.path.isfile(gtf_file):
                     gtfs_list = open(gtf_file, 'w')
                     gtfs_list.write("\n".join(reduce(lambda x, y: x + y, transcripts_gtfs)))
                     gtfs_list.close()
@@ -298,7 +299,7 @@ def run_deseq2(quant_files="", alignments="",
                 logger.info("Skipping step %d: %s" % (step, msg))
             step += 1
 
-    out_deseq2 = os.path.join(outdir, "deseq2", samples_txt)
+    out_deseq2 = os.path.join(outdir, "deseq2", samples_txt, outdir_flag)
     create_dirs([out_deseq2])
     msg = "Copy predictions to output directory for %s." % samples_txt
     if start <= step:
