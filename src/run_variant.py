@@ -33,7 +33,8 @@ def run_gatk(alignment="", ref_genome="", knownsites="",
 
     work_gatk=os.path.join(workdir,"gatk",sample)
     create_dirs([work_gatk])
-
+    out_gatk=os.path.join(outdir,"gatk",sample)
+    create_dirs([out_gatk])
     step=0
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)
@@ -45,7 +46,7 @@ def run_gatk(alignment="", ref_genome="", knownsites="",
         retcode = cmd.run(msg=msg,timeout=timeout)
     step+=1
 
-    gatk_log = os.path.join(work_gatk, "gatk.log")
+    gatk_log = os.path.join(out_gatk, "gatk.log")
     gatk_log_fd = open(gatk_log, "w")
     
 
@@ -264,8 +265,7 @@ def run_gatk(alignment="", ref_genome="", knownsites="",
     step+=1
 
 
-    out_gatk=os.path.join(outdir,"gatk",sample)
-    create_dirs([out_gatk])
+
     msg="Copy predictions to output directory for %s."%sample
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)

@@ -56,6 +56,8 @@ def run_salmon_smem(quantifier_idx=None,
     
     work_salmon_smem=os.path.join(workdir,"salmon_smem",sample)
     create_dirs([work_salmon_smem])
+    out_salmon_smem=os.path.join(outdir,"salmon_smem",sample)
+    create_dirs([out_salmon_smem])
 
     step=0
     if start<=step:
@@ -69,7 +71,7 @@ def run_salmon_smem(quantifier_idx=None,
     step+=1
 
 
-    salmon_smem_log = os.path.join(work_salmon_smem, "salmon_smem.log")
+    salmon_smem_log = os.path.join(out_salmon_smem, "salmon_smem.log")
     salmon_smem_log_fd = open(salmon_smem_log, "w")
 
     if "-p " not in salmon_smem_opts:
@@ -91,8 +93,7 @@ def run_salmon_smem(quantifier_idx=None,
     step+=1
     
 
-    out_salmon_smem=os.path.join(outdir,"salmon_smem",sample)
-    create_dirs([out_salmon_smem])
+
     msg="Copy predictions to output directory for %s."%sample
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)

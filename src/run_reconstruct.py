@@ -22,6 +22,8 @@ def run_stringtie(alignment_bam="",ref_gtf="",
         
     work_stringtie="%s/stringtie/%s/"%(workdir,sample)
     create_dirs([work_stringtie])
+    out_stringtie=os.path.join(outdir,"stringtie",sample)
+    create_dirs([out_stringtie])
     step=0
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)
@@ -32,7 +34,7 @@ def run_stringtie(alignment_bam="",ref_gtf="",
         cmd = TimedExternalCmd(command, logger, raise_exception=False)
         retcode = cmd.run(msg=msg,timeout=timeout)
     step+=1
-    stringtie_log = os.path.join(work_stringtie, "stringtie.log")
+    stringtie_log = os.path.join(out_stringtie, "stringtie.log")
     stringtie_log_fd = open(stringtie_log, "w")
 
     if ref_gtf:
@@ -57,8 +59,7 @@ def run_stringtie(alignment_bam="",ref_gtf="",
         logger.info("Skipping step %d: %s"%(step,msg))
     step+=1
     
-    out_stringtie=os.path.join(outdir,"stringtie",sample)
-    create_dirs([out_stringtie])
+
     msg="Copy predictions to output directory for %s."%sample
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)

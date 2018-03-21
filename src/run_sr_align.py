@@ -51,7 +51,9 @@ def run_hisat2(align_idx=None,
 
     work_hisat2=os.path.join(workdir,"hisat2",sample)
     create_dirs([work_hisat2])
- 
+    out_hisat2=os.path.join(outdir,"hisat2",sample)
+    create_dirs([out_hisat2])
+
     step=0
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)
@@ -63,7 +65,7 @@ def run_hisat2(align_idx=None,
         retcode = cmd.run(msg=msg,timeout=timeout)
     step+=1
 
-    hisat2_log = os.path.join(work_hisat2, "hisat2.log")
+    hisat2_log = os.path.join(out_hisat2, "hisat2.log")
     hisat2_log_fd = open(hisat2_log, "w")
     
     ksps = ""
@@ -166,8 +168,7 @@ def run_hisat2(align_idx=None,
     step+=1
 
 
-    out_hisat2=os.path.join(outdir,"hisat2",sample)
-    create_dirs([out_hisat2])
+
     msg="Copy predictions to output directory for %s."%sample
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)

@@ -19,7 +19,7 @@ def tx2gene_map(ref_gtf_file, tx2gene_file):
             if (line[0] == '#'):
                 continue
             fields = line.strip().split()
-            transcript_info = {k.split()[0]: k.split()[1] for k in ' '.join(fields[8:]).split(";")[:-1]}
+            transcript_info = {k.split()[0]: k.split()[1] for k in ' '.join(fields[8:]).split(";")[:-1] if ' ' in k}
             if "transcript_id" in transcript_info and "gene_id" in transcript_info:
                 t = transcript_info["transcript_id"].strip().strip("\"")
                 g = transcript_info["gene_id"].strip().strip("\"")
@@ -106,7 +106,8 @@ def run_deseq2(quant_files="", alignments="",
 
     work_deseq2 = os.path.join(workdir, "deseq2", samples_txt)
     create_dirs([work_deseq2])
-
+    out_deseq = os.path.join(outdir, "deseq2", samples_txt)
+    create_dirs([out_deseq])
     step = 0
     if start <= step:
         logger.info("--------------------------STEP %s--------------------------" % step)
@@ -118,7 +119,7 @@ def run_deseq2(quant_files="", alignments="",
         retcode = cmd.run(msg=msg, timeout=timeout)
     step += 1
 
-    deseq2_log = os.path.join(work_deseq2, "deseq2.log")
+    deseq2_log = os.path.join(out_deseq, "deseq2.log")
     deseq2_log_fd = open(deseq2_log, "w")
 
     if use_quant:

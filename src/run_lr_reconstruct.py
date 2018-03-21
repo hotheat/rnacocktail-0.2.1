@@ -60,6 +60,8 @@ def run_idp(alignment="", short_junction="", long_alignment="",mode_number=0,
     
     work_idp="%s/idp/%s/"%(workdir,sample)
     create_dirs([work_idp])
+    out_idp=os.path.join(outdir,"idp",sample)
+    create_dirs([out_idp])
 
     step=0
     if start<=step:
@@ -74,7 +76,7 @@ def run_idp(alignment="", short_junction="", long_alignment="",mode_number=0,
 
 
 
-    idp_log = os.path.join(work_idp, "idp.log")
+    idp_log = os.path.join(out_idp, "idp.log")
     idp_log_fd = open(idp_log, "w")
 
     msg = "converting BAM to SAM for %s"%sample
@@ -184,8 +186,7 @@ def run_idp(alignment="", short_junction="", long_alignment="",mode_number=0,
         logger.info("Skipping step %d: %s"%(step,msg))
     step+=1
 
-    out_idp=os.path.join(outdir,"idp",sample)
-    create_dirs([out_idp])
+
     msg="Copy predictions to output directory for %s."%sample
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)

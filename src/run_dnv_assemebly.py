@@ -46,7 +46,8 @@ def run_oases(assmebly_hash=DNV_HASH,
 
     work_oases=os.path.join(workdir,"oases",sample)
     create_dirs([work_oases])
-
+    out_oases=os.path.join(outdir,"oases",sample)
+    create_dirs([out_oases])
     step=0
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)
@@ -58,7 +59,7 @@ def run_oases(assmebly_hash=DNV_HASH,
         retcode = cmd.run(msg=msg, timeout=timeout)
     step+=1
 
-    oases_log = os.path.join(work_oases, "oases.log")
+    oases_log = os.path.join(out_oases, "oases.log")
     oases_log_fd = open(oases_log, "w")
 
     
@@ -101,8 +102,7 @@ def run_oases(assmebly_hash=DNV_HASH,
         logger.info("Skipping step %d: %s"%(step,msg))
     step+=1
 
-    out_oases=os.path.join(outdir,"oases",sample)
-    create_dirs([out_oases])
+
     msg="Copy predictions to output directory for %s."%sample
     if start<=step:
         logger.info("--------------------------STEP %s--------------------------"%step)
