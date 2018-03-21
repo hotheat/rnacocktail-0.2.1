@@ -3,7 +3,7 @@ from external_cmd import TimedExternalCmd
 from defaults import *
 from utils import *
 import csv
-# %(asctime)-15s 总共占 15 个字符
+# %(asctime)-15s 15 characters total
 FORMAT = '%(levelname)s %(asctime)-15s %(name)-20s %(message)s'
 logFormatter = logging.Formatter(FORMAT)
 logger = logging.getLogger(__name__)

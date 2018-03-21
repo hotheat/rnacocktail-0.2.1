@@ -2,10 +2,10 @@ import os
 from external_cmd import TimedExternalCmd
 from defaults import *
 from utils import *
-import pysam
+# import pysam
 import sys
 import csv
-import pybedtools
+# import pybedtools
 
 FORMAT = '%(levelname)s %(asctime)-15s %(name)-20s %(message)s'
 logFormatter = logging.Formatter(FORMAT)

@@ -25,8 +25,8 @@ import logging
 def run_pipeline(args,parser):
 
     mode = args.mode
-    create_dirs([args.workdir, args.outdir,os.path.join(args.workdir,"logs")])
-    log_file=os.path.join(args.workdir,"logs","run-%s-%s-%s.log"%(
+    create_dirs([args.workdir, args.outdir,os.path.join(args.outdir,"logs")])
+    log_file=os.path.join(args.outdir,"logs","run-%s-%s-%s.log"%(
                           ("-".join(args.sample)) if mode in ["diff","all"] else args.sample,
                           mode, time.strftime("%Y%m%d-%H%M%S")))
     FORMAT = '%(levelname)s %(asctime)-15s %(name)-20s %(message)s'
