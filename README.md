@@ -9,3 +9,6 @@ See http://bioinform.github.io/rnacocktail/ for help and downloads.
 
 2017.11.08  
 更改 /hwfssz1/ST_OCEAN/USER/guojiao1/app/rnacocktail-0.2.1/scripts/hisat2_jun2bed.py 22 行和 29 行 分隔符
+
+2018.05.23
+增加 -large_gemome 参数, 支持大于 4 g 以上基因组.

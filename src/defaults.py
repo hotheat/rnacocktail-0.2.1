@@ -60,6 +60,7 @@ JAVA_OPT= "%s %s"%(JAVA_XMS,JAVA_XMG)
 
 
 HISAT2 = "hisat2"
+HISAT2L = "hisat2-align-l"
 HISAT2_SPS = "hisat2_extract_splice_sites.py"
 SAMTOOLS = "samtools"
 STRINGTIE = "stringtie"
